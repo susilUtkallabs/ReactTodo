@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { v4 as uuid } from 'uuid';
 import ListItems from './ListItems';
+import  CentralState  from './context/centralState.context';
 
-const Sidebar = ({lists, setList, setSelectedListItemIndex}) => {
+const Sidebar = () => {
 
+    const {lists, setList, selectedListItemIndex, setSelectedListItemIndex } = useContext(CentralState);
     const [listName, setListName] = useState('');
 
     const addList = ()=>{
@@ -11,7 +13,7 @@ const Sidebar = ({lists, setList, setSelectedListItemIndex}) => {
             const list = [...prev];
             list.push({
                 id: uuid(),
-                listName:listName,
+                listName,
                 allTodos:[]
             });
             return list;

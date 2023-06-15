@@ -2,22 +2,17 @@ import './index.css'
 import './App.css';
 import Sidebar from './Sidebar';
 import Todos from './Todos';
-import { useEffect, useState } from 'react';
+import {CentralStateProvider} from './context/centralState.context';
 
 function App() {
-
-  const [lists, setList] = useState([]);
-  const [selectedListItemIndex, setSelectedListItemIndex] = useState("");
-
-  // useEffect(()=>{
-  //   console.log("all lists", lists);
-  // },[lists]);
 
   return (
     <div className="app">
       <div className="wrapper">
-          <Sidebar lists={lists} setList={setList} setSelectedListItemIndex={setSelectedListItemIndex}  />
-          <Todos lists={lists} setList={setList} selectedListItemIndex={selectedListItemIndex} />
+        <CentralStateProvider>
+          <Sidebar  />
+          <Todos />
+        </CentralStateProvider>
       </div>
     </div>
   );

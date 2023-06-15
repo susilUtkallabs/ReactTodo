@@ -1,21 +1,16 @@
-import React from 'react';
-import { v4 as uuid } from 'uuid';
+import React, { useContext } from 'react';
+import CentralState from './context/centralState.context';
 
-const TodoList = ({lists, setList, selectedListItemIndex}) => {
+const TodoList = () => {
 
+  const {lists, setList,selectedListItemIndex, setSelectedListItemIndex } = useContext(CentralState);
+  
   const changeTodoStatus = (todoIndex)=>{
     setList((prev)=>{
       const list = [...prev];
       list[selectedListItemIndex].allTodos[todoIndex].isCompleted = !list[selectedListItemIndex].allTodos[todoIndex].isCompleted;
       return list;
     })
-  }
-
-  const editTodo = (todoIndex) => {
-    // setList((prev)=>{
-    //   const list = [...prev];
-      
-    // });
   }
 
   const deleteTodo = (todoIndex) => {
@@ -30,7 +25,7 @@ const TodoList = ({lists, setList, selectedListItemIndex}) => {
     <ul>
       {
         lists[selectedListItemIndex]?.allTodos.map((todo, index) => (
-          <li key={todo.id}>{todo.todoName} <button onClick={()=>changeTodoStatus(index)}>done</button> {todo.isCompleted === false ? <button onClick={()=> editTodo(index)}>edit</button> : ""} <button onClick={()=>deleteTodo(index)}>delete</button></li>
+          <li key={todo.id}>{todo.todoName} <button onClick={()=>changeTodoStatus(index)}>done</button> {todo.isCompleted === false ? <button>edit</button> : ""} <button onClick={()=>deleteTodo(index)}>delete</button></li>
         ))
       }
     </ul>
